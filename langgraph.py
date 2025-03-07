@@ -22,8 +22,8 @@ if not groq_api_key:
     st.error("Groq API Key not found in .env file")
     st.stop()
 
-st.set_page_config(page_title="Math Solver", page_icon="👨‍🔬")
-st.title("Math Solver")
+st.set_page_config(page_title="Medical Bot", page_icon="👨‍🔬")
+st.title("Medical Bot")
 llm_text = ChatGroq(model="gemma2-9b-it", groq_api_key=groq_api_key)
 llm_image = ChatGroq(model="llama-3.2-90b-vision-preview", groq_api_key=groq_api_key)
 
@@ -96,9 +96,8 @@ def clean_response(response):
 
 if st.session_state["section"] == "text":
     st.header("Text Question")
-    st.write("Please enter your mathematical question below, and I will provide a detailed solution.")
-    question = st.text_area("Your Question:", "Example: I have 5 apples and 3 oranges. If I eat 2 apples, how many fruits do I have left?")
-
+    st.write("Please enter your question below, and I will provide a detailed description of the problem and suggest a solution for it.")
+    question = st.text_area("Your Question:")
     if st.button("Get Answer"):
         if question:
             with st.spinner("Generating response..."):
@@ -119,8 +118,8 @@ if st.session_state["section"] == "text":
 
 elif st.session_state["section"] == "image":
     st.header("Image Question")
-    st.write("Please enter your question below and upload an image. I will provide a detailed solution.")
-    question = st.text_area("Your Question:", "Example: What will be the answer?")
+    st.write("Please enter your question below and upload the medical image. I will provide a detailed description of the problem and suggest a solution for it.")
+    question = st.text_area("Your Question:", "Example: What is the patient suffering from?")
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
 
     if st.button("Get Answer"):
